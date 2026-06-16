@@ -11,6 +11,15 @@ body {
   background: #f7f7f5;
   color: #37352f;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+html.dark body {
+  background: #191919;
+  color: #e6e6e3;
 }
 
 /* esconde spinners de input number */

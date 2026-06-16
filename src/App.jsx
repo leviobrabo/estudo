@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import Desempenho from './components/Desempenho.jsx'
 import Header from './components/Header.jsx'
 import PlanejamentoTable from './components/PlanejamentoTable.jsx'
@@ -36,6 +36,11 @@ export default function App() {
     semana: '',
     pendentes: false,
   })
+  const [tema, setTema] = useLocalStorage('estudos-planner:tema', 'light')
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', tema === 'dark')
+  }, [tema])
 
   // edição/criação/remoção
   const atualizar = (atualizada) =>
@@ -94,8 +99,9 @@ export default function App() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <Header />
+    <div className="min-h-screen w-full bg-[#f7f7f5] transition-colors dark:bg-[#191919]">
+      <div className="mx-auto max-w-6xl px-4 py-8">
+      <Header tema={tema} setTema={setTema} />
       <StatsBar r={r} />
       <Toolbar
         filtros={filtros}
@@ -109,9 +115,10 @@ export default function App() {
       <PontosFracos lista={fracos} />
       <Desempenho linhas={porMateria} />
 
-      <footer className="mt-8 text-center text-xs text-gray-300">
+      <footer className="mt-8 text-center text-xs text-gray-300 dark:text-gray-600">
         Réplica do template Notion · dados salvos no seu navegador
       </footer>
+      </div>
     </div>
   )
 }

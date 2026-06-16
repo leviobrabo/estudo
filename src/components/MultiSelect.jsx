@@ -24,15 +24,15 @@ export default function MultiSelect({ valor = [], opcoes, onChange, placeholder 
       <button
         type="button"
         onClick={() => setAberto((a) => !a)}
-        className="flex min-h-[28px] w-full flex-wrap items-center gap-1 rounded px-1.5 py-1 text-left hover:bg-gray-100"
+        className="flex min-h-[28px] w-full flex-wrap items-center gap-1 rounded px-1.5 py-1 text-left hover:bg-gray-100 dark:hover:bg-white/10"
       >
-        {valor.length === 0 && <span className="text-gray-300">{placeholder}</span>}
+        {valor.length === 0 && <span className="text-gray-300 dark:text-gray-600">{placeholder}</span>}
         {valor.map((v) => (
           <Chip key={v} valor={v} />
         ))}
       </button>
       {aberto && (
-        <div className="absolute z-30 mt-1 max-h-64 w-56 overflow-auto rounded-lg border border-gray-200 bg-white p-1 shadow-lg">
+        <div className="absolute z-30 mt-1 max-h-64 w-56 overflow-auto rounded-lg border border-gray-200 bg-white p-1 shadow-lg dark:border-white/10 dark:bg-[#2d2d2d]">
           {opcoes.map((op) => {
             const sel = valor.includes(op)
             return (
@@ -40,7 +40,7 @@ export default function MultiSelect({ valor = [], opcoes, onChange, placeholder 
                 key={op}
                 type="button"
                 onClick={() => toggle(op)}
-                className={`flex w-full items-center justify-between gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-gray-100 ${
+                className={`flex w-full items-center justify-between gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-gray-100 dark:hover:bg-white/10 ${
                   sel ? 'font-medium' : ''
                 }`}
               >

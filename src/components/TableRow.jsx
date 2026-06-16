@@ -15,7 +15,7 @@ export default function TableRow({ a, onChange, onDelete }) {
   }
 
   return (
-    <tr className={`border-b border-gray-100 align-top ${a.feito ? 'bg-gray-50/60' : ''}`}>
+    <tr className={`border-b border-gray-100 align-top dark:border-white/5 ${a.feito ? 'bg-gray-50/60 dark:bg-white/5' : ''}`}>
       {/* Tópico */}
       <td className="px-1 py-1">
         <textarea
@@ -23,7 +23,7 @@ export default function TableRow({ a, onChange, onDelete }) {
           value={a.topico}
           onChange={(e) => set('topico', e.target.value)}
           placeholder="Tópico…"
-          className={`w-full resize-none rounded px-1.5 py-1 text-sm outline-none hover:bg-gray-100 focus:bg-gray-100 ${
+          className={`w-full resize-none rounded px-1.5 py-1 text-sm outline-none hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:placeholder-gray-600 ${
             a.feito ? 'text-gray-400 line-through' : 'font-medium text-gray-800'
           }`}
         />
@@ -36,7 +36,7 @@ export default function TableRow({ a, onChange, onDelete }) {
           value={a.atividade}
           onChange={(e) => set('atividade', e.target.value)}
           placeholder="—"
-          className="w-full rounded px-1.5 py-1 text-sm outline-none hover:bg-gray-100 focus:bg-gray-100"
+          className="w-full rounded px-1.5 py-1 text-sm outline-none hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:placeholder-gray-600"
         />
       </td>
 
@@ -73,7 +73,7 @@ export default function TableRow({ a, onChange, onDelete }) {
           value={a.acertos ?? ''}
           onChange={num('acertos')}
           placeholder="0"
-          className="w-14 rounded px-1.5 py-1 text-center text-sm outline-none hover:bg-gray-100 focus:bg-gray-100"
+          className="w-14 rounded px-1.5 py-1 text-center text-sm outline-none hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:placeholder-gray-600"
         />
       </td>
 
@@ -85,7 +85,7 @@ export default function TableRow({ a, onChange, onDelete }) {
           value={a.questoes ?? ''}
           onChange={num('questoes')}
           placeholder="0"
-          className="w-14 rounded px-1.5 py-1 text-center text-sm outline-none hover:bg-gray-100 focus:bg-gray-100"
+          className="w-14 rounded px-1.5 py-1 text-center text-sm outline-none hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:placeholder-gray-600"
         />
       </td>
 
@@ -101,13 +101,13 @@ export default function TableRow({ a, onChange, onDelete }) {
           value={a.texto}
           onChange={(e) => set('texto', e.target.value)}
           placeholder="—"
-          className="w-full resize-none rounded px-1.5 py-1 text-sm text-gray-600 outline-none hover:bg-gray-100 focus:bg-gray-100"
+          className="w-full resize-none rounded px-1.5 py-1 text-sm text-gray-600 outline-none hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:placeholder-gray-600"
         />
       </td>
 
       {/* Excluir */}
       <td className="px-1 py-1 text-center">
-        <button onClick={onDelete} className="rounded px-1.5 text-gray-300 hover:bg-red-50 hover:text-red-500" title="Excluir">
+        <button onClick={onDelete} className="rounded px-1.5 text-gray-300 hover:bg-red-50 hover:text-red-500 dark:text-gray-600 dark:hover:bg-red-500/10" title="Excluir">
           ✕
         </button>
       </td>

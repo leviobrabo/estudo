@@ -18,10 +18,10 @@ const COLS = [
 // Tabela principal "Planejamento".
 export default function PlanejamentoTable({ atividades, onChange, onDelete }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#252525]">
       <table className="w-full min-w-[1100px] border-collapse">
         <thead>
-          <tr className="border-b border-gray-200 bg-gray-50 text-left text-[11px] uppercase tracking-wide text-gray-500">
+          <tr className="border-b border-gray-200 bg-gray-50 text-left text-[11px] uppercase tracking-wide text-gray-500 dark:border-white/10 dark:bg-white/5 dark:text-gray-400">
             {COLS.map((c, i) => (
               <th key={i} className="px-2 py-2 font-medium">
                 {c}
@@ -32,7 +32,7 @@ export default function PlanejamentoTable({ atividades, onChange, onDelete }) {
         <tbody>
           {atividades.length === 0 && (
             <tr>
-              <td colSpan={COLS.length} className="px-4 py-10 text-center text-sm text-gray-400">
+              <td colSpan={COLS.length} className="px-4 py-10 text-center text-sm text-gray-400 dark:text-gray-500">
                 Nenhuma atividade. Clique em <strong>+ Nova atividade</strong> para começar.
               </td>
             </tr>

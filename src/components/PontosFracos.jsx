@@ -8,11 +8,11 @@ export default function PontosFracos({ lista }) {
   return (
     <Toggle titulo="🔁 Revisão — Pontos fracos" badge={lista.length}>
       {lista.length === 0 ? (
-        <p className="py-2 text-sm text-gray-400">
+        <p className="py-2 text-sm text-gray-400 dark:text-gray-500">
           Nenhum ponto fraco. Tudo acima do alvo (ou ainda sem questões respondidas). 🎉
         </p>
       ) : (
-        <ul className="divide-y divide-gray-100">
+        <ul className="divide-y divide-gray-100 dark:divide-white/10">
           {lista.map((a) => {
             const d = desempenho(a)
             const alvo = limiarDe(a)
@@ -22,7 +22,7 @@ export default function PontosFracos({ lista }) {
                   {pct(d)}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium text-gray-800">{a.topico || '(sem título)'}</div>
+                  <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">{a.topico || '(sem título)'}</div>
                   <div className="mt-0.5 flex flex-wrap items-center gap-1">
                     {(a.materia || []).map((m) => (
                       <Chip key={m} valor={m} />
@@ -44,7 +44,7 @@ export default function PontosFracos({ lista }) {
 function Barra({ d, cor }) {
   const c = corClasse[cor] || corClasse.default
   return (
-    <div className="hidden h-2 w-24 overflow-hidden rounded-full bg-gray-100 sm:block">
+    <div className="hidden h-2 w-24 overflow-hidden rounded-full bg-gray-100 dark:bg-white/10 sm:block">
       <div className={`h-full ${c.bar}`} style={{ width: `${Math.round((d || 0) * 100)}%` }} />
     </div>
   )
