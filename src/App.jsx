@@ -9,7 +9,7 @@ import { atividadesExemplo } from './data/seed.js'
 import { useLocalStorage } from './hooks/useLocalStorage.js'
 import { desempenhoPorMateria, pontosFracos, resumo } from './lib/calc.js'
 
-const STORAGE_KEY = 'estudos-planner:atividades'
+const STORAGE_KEY = 'estudos-planner:atividades-v2'
 
 function novaAtividade() {
   return {

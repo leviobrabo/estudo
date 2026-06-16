@@ -95,84 +95,113 @@ export const LIMIARES = {
 let _id = 0
 const nid = () => `seed-${++_id}`
 
-// Atividades de exemplo (acertos/questões variados p/ disparar pontos fracos e desempenho).
-export const atividadesExemplo = [
-  {
+// Mapa dos rótulos do plano Sefaz-BA → matérias do template (p/ chip colorido).
+const MAP_MATERIA = {
+  Estatística: 'Estatística',
+  Contabilidade: 'Contabilidade',
+  Português: 'Português',
+  TI: 'Tecnologia da Informação',
+  Tributário: 'Direito Tributário',
+  Constitucional: 'Constitucional',
+  Economia: 'Economia',
+  RLM: 'RLM',
+  Auditoria: 'Auditoria Geral',
+  'Mat. Financeira': 'Matemática Financeira',
+  Civil: 'Civil',
+  Administrativo: 'Administrativo',
+  Adm: 'Administrativo',
+  Penal: 'Penal',
+  Empresarial: 'Empresarial',
+  Custos: 'Contabilidade de Custos',
+  AFO: 'AFO',
+  Reforma: 'Reforma Tributária',
+}
+
+// Calendário S1–S10 (seção 8 do Plano de domínio Sefaz-BA).
+// Cada item: [matéria(s) separadas por +, tópico]. Matéria '' = avaliação/genérico.
+const PLANO = [
+  { s: 1, carga: '18–20h',
+    P: [['Estatística', 'Amostragem'], ['Contabilidade', 'Ativo'], ['Português', 'Concordância']],
+    M: [['TI', 'Regressão — abrir'], ['Tributário', 'LC24 — abrir']],
+    R: [['Constitucional', 'Controle — abrir']],
+    A: [['', 'Diagnóstico curto (sem simulado)']] },
+  { s: 2, carga: '22–24h',
+    P: [['TI', 'Regressão → consolidar; Dimensional'], ['Tributário', 'LC24 → consol; Kandir'], ['Estatística', 'Distribuições']],
+    M: [['Contabilidade', 'Ativo → validar'], ['Português', 'Reescrita']],
+    R: [['Economia', 'Micro — começar']],
+    A: [['', 'Diagnóstico curto']] },
+  { s: 3, carga: '26h',
+    P: [['Contabilidade', 'Demonstrações'], ['Constitucional', 'Controle → consol'], ['TI', 'Segurança I; NoSQL']],
+    M: [['Estatística', 'Amostragem → validar'], ['Tributário', 'Legislação / Obrigação']],
+    R: [['RLM', 'Sequências']],
+    A: [['', 'Mini-simulado 20–30']] },
+  { s: 4, carga: '28h',
+    P: [['Estatística', 'Testes → consol'], ['Tributário', 'Impostos'], ['Português', 'Interpretação (volume)']],
+    M: [['TI', 'PMBOK'], ['Auditoria', 'EFD']],
+    R: [['Economia', 'Mercados']],
+    A: [['', 'Mini-simulado misto']] },
+  { s: 5, carga: '28h',
+    P: [['RLM', 'Aritmética / Argumentação'], ['Contabilidade', 'Regimes B / CPCs'], ['TI', 'Cluster / Redes']],
+    M: [['Constitucional', 'Jurisprudência'], ['Mat. Financeira', 'Amortização']],
+    R: [['Civil', 'LINDB + Negócios Jurídicos']],
+    A: [['', 'Mini-simulado misto']] },
+  { s: 6, carga: '28h',
+    P: [['TI', 'SGBDs / SQL (volume)'], ['Estatística', 'IC / Probabilidade → validar'], ['Tributário', 'Validar fechados']],
+    M: [['Português', 'Pontuação'], ['Administrativo', 'Jurisprudência']],
+    R: [['Economia', 'Macro']],
+    A: [['', 'Mini-simulado misto']] },
+  { s: 7, carga: '28h',
+    P: [['RLM', 'Equações / Funções'], ['Contabilidade', 'Validar'], ['TI', 'Python / ML (restante)']],
+    M: [['Auditoria', 'Manutenção'], ['Penal', 'Crimes contra a ordem tributária']],
+    R: [['Mat. Financeira', 'Descontos']],
+    A: [['', 'Primeiras validações + mini-sim por matéria']] },
+  { s: 8, carga: '28h',
+    P: [['', '3ª rodada — só dos abaixo da meta (varia)']],
+    M: [['Adm+Custos', '2 fortes em manutenção']],
+    R: [['Civil', 'Posse / Obrigações']],
+    A: [['', 'Revisão do Anki acumulado + simulado misto 50–80']] },
+  { s: 9, carga: '28h',
+    P: [['', 'Reforço cirúrgico nos críticos restantes']],
+    M: [['Empresarial', 'Sociedade Limitada'], ['Português', 'Manutenção']],
+    R: [['Economia', 'Finanças Públicas']],
+    A: [['', 'Simulado maior cronometrado + análise de tempo + top-5 perdas']] },
+  { s: 10, carga: '28h',
+    P: [['', 'Correção dos 5 maiores pontos de perda']],
+    M: [['', '2 manutenções pendentes']],
+    R: [],
+    A: [['', 'Novo simulado + comparar com S9 + definir ciclo seguinte']] },
+]
+
+const TIPOS = { P: 'Principal', M: 'Manutenção', R: 'Rotação', A: 'Avaliação' }
+
+function linha(semana, carga, tipo, [materiaRaw, topico]) {
+  const materia = materiaRaw
+    ? materiaRaw.split('+').map((m) => MAP_MATERIA[m] || m)
+    : []
+  return {
     id: nid(),
-    topico: 'Concordância verbal',
-    atividade: 'Teoria + 20 questões',
-    materia: ['Português'],
-    dia: ['Segunda'],
-    semana: ['1'],
-    feito: true,
-    revisado: false,
-    acertos: 12,
-    questoes: 20,
-    texto: 'Revisar regência depois.',
-  },
-  {
-    id: nid(),
-    topico: 'Raciocínio lógico — proposições',
-    atividade: 'Videoaula + exercícios',
-    materia: ['RLM'],
-    dia: ['Terça'],
-    semana: ['1'],
-    feito: true,
-    revisado: false,
-    acertos: 18,
-    questoes: 25,
-    texto: '',
-  },
-  {
-    id: nid(),
-    topico: 'Princípios constitucionais',
-    atividade: 'Leitura da lei seca',
-    materia: ['Constitucional'],
-    dia: ['Quarta'],
-    semana: ['1'],
-    feito: true,
-    revisado: true,
-    acertos: 17,
-    questoes: 20,
-    texto: 'Foco em art. 37.',
-  },
-  {
-    id: nid(),
-    topico: 'Atos administrativos',
-    atividade: 'Resumo + 15 questões',
-    materia: ['Administrativo'],
-    dia: ['Quinta'],
-    semana: ['2'],
-    feito: true,
-    revisado: false,
-    acertos: 9,
-    questoes: 15,
-    texto: 'Difícil: anulação x revogação.',
-  },
-  {
-    id: nid(),
-    topico: 'Auditoria — normas NBC TA',
-    atividade: 'Mapa mental',
-    materia: ['Auditoria Geral'],
-    dia: ['Sexta'],
-    semana: ['2'],
-    feito: true,
-    revisado: false,
-    acertos: 14,
-    questoes: 20,
-    texto: '',
-  },
-  {
-    id: nid(),
-    topico: 'Tributos — espécies',
-    atividade: 'Aula + questões CESPE',
-    materia: ['Direito Tributário'],
-    dia: ['Sábado'],
-    semana: ['2'],
+    topico,
+    atividade: tipo,
+    materia,
+    dia: [],
+    semana: semana ? [String(semana)] : [],
     feito: false,
     revisado: false,
     acertos: null,
     questoes: null,
-    texto: 'Ainda não comecei.',
-  },
+    texto: `Carga ${carga}`,
+  }
+}
+
+// Atividades = calendário S1–S10 do plano.
+const atividadesPlano = PLANO.flatMap((sem) =>
+  ['P', 'M', 'R', 'A'].flatMap((k) => (sem[k] || []).map((item) => linha(sem.s, sem.carga, TIPOS[k], item))),
+)
+
+// AFO e Reforma (DT II): rodam em paralelo nos slots de teoria (~70 questões no ciclo).
+const atividadesParalelas = [
+  linha('', '28h', 'Teoria + 10–15 questões/unidade', ['AFO', 'AFO — teoria + questões (interleave)']),
+  linha('', '28h', 'Teoria + 10–15 questões/unidade', ['Reforma', 'Reforma Tributária — teoria + questões']),
 ]
+
+export const atividadesExemplo = [...atividadesPlano, ...atividadesParalelas]
